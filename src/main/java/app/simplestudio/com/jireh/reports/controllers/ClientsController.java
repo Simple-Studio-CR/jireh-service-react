@@ -1,11 +1,11 @@
 package app.simplestudio.com.jireh.reports.controllers;
 
-import app.simplestudio.com.jireh.reports.documents.Clients;
-import app.simplestudio.com.jireh.reports.documents.ClientsBranchOffice;
-import app.simplestudio.com.jireh.reports.documents.ClientsBranchOfficeWarehouse;
-import app.simplestudio.com.jireh.reports.service.ClientsBranchOfficeService;
-import app.simplestudio.com.jireh.reports.service.ClientsBranchOfficeWarehouseService;
-import app.simplestudio.com.jireh.reports.service.ClientsService;
+import app.simplestudio.com.jireh.reports.documents.client.Clients;
+import app.simplestudio.com.jireh.reports.documents.client.ClientsBranchOffice;
+import app.simplestudio.com.jireh.reports.documents.client.ClientsBranchOfficeWarehouse;
+import app.simplestudio.com.jireh.reports.service.inteface.client.ClientsBranchOfficeService;
+import app.simplestudio.com.jireh.reports.service.inteface.client.ClientsBranchOfficeWarehouseService;
+import app.simplestudio.com.jireh.reports.service.inteface.client.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +19,8 @@ import java.net.URI;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
-@Controller
+@RestController
 @RequestMapping("/clients")
 public class ClientsController {
 
@@ -95,23 +94,23 @@ public class ClientsController {
     }
 
     @GetMapping("/branches/all")
-    public Mono<ResponseEntity<Flux<ClientsBranchOffice>>> findAllBranches() {
-        return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(branchOfficeService.findAll()));
+    public ResponseEntity<Flux<ClientsBranchOffice>> findAllBranches() {
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(branchOfficeService.findAll());
     }
 
     @GetMapping("/branches/id/{id}")
-    public Mono<ResponseEntity<Mono<ClientsBranchOffice>>> findBranchById(@PathVariable String id) {
-        return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(branchOfficeService.findById(id)));
+    public ResponseEntity<Mono<ClientsBranchOffice>> findBranchById(@PathVariable String id) {
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(branchOfficeService.findById(id));
     }
 
     @GetMapping("/branches/client/{clientId}")
-    public Mono<ResponseEntity<Flux<ClientsBranchOffice>>> findByClientId(@PathVariable String clientId) {
-        return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(branchOfficeService.findClientsBranchOfficeByClientId(clientId)));
+    public ResponseEntity<Flux<ClientsBranchOffice>> findByClientId(@PathVariable String clientId) {
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(branchOfficeService.findClientsBranchOfficeByClientId(clientId));
     }
 
     @GetMapping("/branches/{name}")
-    public Mono<ResponseEntity<Mono<ClientsBranchOffice>>> findBranchByName(@PathVariable String name) {
-        return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(branchOfficeService.findClientsBranchOfficeByName(name)));
+    public ResponseEntity<Mono<ClientsBranchOffice>> findBranchByName(@PathVariable String name) {
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(branchOfficeService.findClientsBranchOfficeByName(name));
     }
 
     @PostMapping(path = "/branches")
@@ -146,23 +145,23 @@ public class ClientsController {
     }
 
     @GetMapping("/warehouse/all")
-    public Mono<ResponseEntity<Flux<ClientsBranchOfficeWarehouse>>> findAllWarehouses() {
-        return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(warehouseService.findAll()));
+    public ResponseEntity<Flux<ClientsBranchOfficeWarehouse>> findAllWarehouses() {
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(warehouseService.findAll());
     }
 
     @GetMapping("/warehouse/id/{id}")
-    public Mono<ResponseEntity<Mono<ClientsBranchOfficeWarehouse>>> findWarehouseById(@PathVariable String id) {
-        return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(warehouseService.findById(id)));
+    public ResponseEntity<Mono<ClientsBranchOfficeWarehouse>> findWarehouseById(@PathVariable String id) {
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(warehouseService.findById(id));
     }
 
     @GetMapping("/warehouse/branch/{branchId}")
-    public Mono<ResponseEntity<Flux<ClientsBranchOfficeWarehouse>>> findByBranchId(@PathVariable String branchId) {
-        return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(warehouseService.findClientsBranchOfficeWarehouseByBranchId(branchId)));
+    public ResponseEntity<Flux<ClientsBranchOfficeWarehouse>> findByBranchId(@PathVariable String branchId) {
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(warehouseService.findClientsBranchOfficeWarehouseByBranchId(branchId));
     }
 
     @GetMapping("/warehouse/name/{name}")
-    public Mono<ResponseEntity<Mono<ClientsBranchOfficeWarehouse>>> findWarehouseByName(@PathVariable String name) {
-        return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(warehouseService.findClientsBranchOfficeWarehouseByName(name)));
+    public ResponseEntity<Mono<ClientsBranchOfficeWarehouse>> findWarehouseByName(@PathVariable String name) {
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(warehouseService.findClientsBranchOfficeWarehouseByName(name));
     }
 
     @PostMapping(path = "/warehouse")

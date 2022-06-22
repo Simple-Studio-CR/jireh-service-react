@@ -1,7 +1,7 @@
 package app.simplestudio.com.jireh.reports.controllers;
 
 import app.simplestudio.com.jireh.reports.documents.JirehProducts;
-import app.simplestudio.com.jireh.reports.service.JirehProductsService;
+import app.simplestudio.com.jireh.reports.service.inteface.JirehProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
