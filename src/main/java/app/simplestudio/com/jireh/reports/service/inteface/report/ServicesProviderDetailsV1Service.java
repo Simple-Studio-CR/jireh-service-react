@@ -9,4 +9,6 @@ public interface ServicesProviderDetailsV1Service {
     Mono<ServicesProviderDetailsV1> save(ServicesProviderDetailsV1 servicesProviderDetails);
 
     Flux<ServicesProviderDetailsV1> findByServiceProviderId(String serviceProviderId);
+
+    Mono<ServicesProviderDetailsV1> findById(String id);
 }

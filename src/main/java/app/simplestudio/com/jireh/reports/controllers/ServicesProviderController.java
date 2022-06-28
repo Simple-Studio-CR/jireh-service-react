@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,7 @@ import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,6 +67,24 @@ public class ServicesProviderController {
         });
     }
 
+    @PutMapping("/main/{id}")
+    public Mono<ResponseEntity<ServicesProvider>> editServiceProvider(@Valid @RequestBody ServicesProvider monoProduct,
+                                                                      @PathVariable(value = "id") String id) throws ParseException {
+        return providerService.findById(id).flatMap(p -> {
+                    p.setClientName(monoProduct.getClientName());
+                    p.setClientAddress(monoProduct.getClientAddress());
+                    p.setEndTime(monoProduct.getEndTime());
+                    p.setIdentifier(monoProduct.getIdentifier());
+                    p.setFumigationFrequency(monoProduct.getFumigationFrequency());
+                    p.setStartTime(monoProduct.getStartTime());
+                    p.setWarehouseId(monoProduct.getWarehouseId());
+                    return this.providerService.save(p);
+                }).map(p -> ResponseEntity.created(URI.create("api/clients".concat(p.getId())))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(p))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
     @PostMapping("/save-recommendations")
     Mono<ResponseEntity<Map<String, Object>>> saveServiceProviderRecommendations(@Valid @RequestBody Mono<ServicesProviderRecommendations> recommendationsMono) {
         Map<String, Object> response = new HashMap<>();
@@ -75,6 +95,20 @@ public class ServicesProviderController {
                     return ResponseEntity.created(URI.create("api/clients".concat(servicesProviderRecommendations.getId())))
                             .contentType(MediaType.APPLICATION_JSON).body(response);
                 }));
+    }
+
+    @PutMapping("/recommendation/{id}")
+    public Mono<ResponseEntity<ServicesProviderRecommendations>> editRecommendation(@Valid @RequestBody ServicesProviderRecommendations monoProduct,
+                                                                                    @PathVariable(value = "id") String id) throws ParseException {
+        return providerRecommendationsService.findById(id).flatMap(p -> {
+                    p.setRecommendationId(monoProduct.getRecommendationId());
+                    p.setApply(monoProduct.getApply());
+                    p.setServiceProviderId(monoProduct.getServiceProviderId());
+                    return this.providerRecommendationsService.save(p);
+                }).map(p -> ResponseEntity.created(URI.create("api/clients".concat(p.getId())))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(p))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/save-details")
@@ -101,6 +135,20 @@ public class ServicesProviderController {
                 }));
     }
 
+    @PutMapping("/details-v1/{id}")
+    public Mono<ResponseEntity<ServicesProviderDetailsV1>> editDetailsV1(@Valid @RequestBody ServicesProviderDetailsV1 monoProduct,
+                                                                         @PathVariable(value = "id") String id) throws ParseException {
+        return servicesProviderDetailsV1.findById(id).flatMap(p -> {
+                    p.setEquipment(monoProduct.getEquipment());
+                    p.setProducts(monoProduct.getProducts());
+                    p.setServiceProviderId(monoProduct.getServiceProviderId());
+                    return this.servicesProviderDetailsV1.save(p);
+                }).map(p -> ResponseEntity.created(URI.create("api/clients".concat(p.getId())))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(p))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
     @PostMapping("/save-pest-type")
     Mono<ResponseEntity<Map<String, Object>>> saveServiceProviderPestTypeDetails(@Valid @RequestBody Mono<ServicesProviderPestTypeDetail> detailsMono) {
         Map<String, Object> response = new HashMap<>();
@@ -111,6 +159,21 @@ public class ServicesProviderController {
                     return ResponseEntity.created(URI.create("api/clients".concat(details.getId())))
                             .contentType(MediaType.APPLICATION_JSON).body(response);
                 }));
+    }
+
+    @PutMapping("/pest-type/{id}")
+    public Mono<ResponseEntity<ServicesProviderPestTypeDetail>> editPestType(@Valid @RequestBody ServicesProviderPestTypeDetail monoProduct,
+                                                                         @PathVariable(value = "id") String id) throws ParseException {
+        return pestTypeDetailService.findById(id).flatMap(p -> {
+                    p.setApply(monoProduct.getApply());
+                    p.setServiceProviderId(monoProduct.getServiceProviderId());
+                    p.setPestTypeId(monoProduct.getPestTypeId());
+                    p.setLevel(monoProduct.getLevel());
+                    return this.pestTypeDetailService.save(p);
+                }).map(p -> ResponseEntity.created(URI.create("api/clients".concat(p.getId())))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(p))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/get-main-by-client/{client}/{pageNo}/{pageSize}")

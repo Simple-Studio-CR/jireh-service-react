@@ -18,6 +18,11 @@ public class ServicesProviderServiceImpl implements ServicesProviderService {
     ServicesProviderDao servicesProviderDao;
 
     @Override
+    public Mono<ServicesProvider> findById(String id) {
+        return this.servicesProviderDao.findById(id);
+    }
+
+    @Override
     public Mono<ServicesProvider> save(ServicesProvider servicesProvider) {
         return this.servicesProviderDao.save(servicesProvider);
     }

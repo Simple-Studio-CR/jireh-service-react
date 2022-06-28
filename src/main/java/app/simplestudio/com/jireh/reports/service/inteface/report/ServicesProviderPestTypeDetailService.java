@@ -8,4 +8,6 @@ public interface ServicesProviderPestTypeDetailService {
     Mono<ServicesProviderPestTypeDetail> save(ServicesProviderPestTypeDetail pestTypeDetail);
 
     Flux<ServicesProviderPestTypeDetail> findByServiceProviderId(String serviceProviderId);
+
+    Mono<ServicesProviderPestTypeDetail> findById(String id);
 }

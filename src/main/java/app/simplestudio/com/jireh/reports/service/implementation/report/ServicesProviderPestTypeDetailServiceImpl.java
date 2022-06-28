@@ -22,4 +22,9 @@ public class ServicesProviderPestTypeDetailServiceImpl implements ServicesProvid
     public Flux<ServicesProviderPestTypeDetail> findByServiceProviderId(String serviceProviderId) {
         return this.pestTypeDetailDao.findByServiceProviderId(serviceProviderId);
     }
+
+    @Override
+    public Mono<ServicesProviderPestTypeDetail> findById(String id) {
+        return this.pestTypeDetailDao.findById(id);
+    }
 }

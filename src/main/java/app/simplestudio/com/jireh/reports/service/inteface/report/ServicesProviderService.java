@@ -7,6 +7,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface ServicesProviderService{
+    Mono<ServicesProvider> findById(String id);
     Mono<ServicesProvider> save (ServicesProvider servicesProvider);
 
     Flux<ServicesProvider> findByClientId(String client, int pageNo, int pageSize);

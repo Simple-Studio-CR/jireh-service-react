@@ -23,4 +23,9 @@ public class ServicesProviderDetailsV1ServiceImpl implements ServicesProviderDet
     public Flux<ServicesProviderDetailsV1> findByServiceProviderId(String serviceProviderId) {
         return this.serviceProviderDetailsV1Dao.findServiceProviderDetailsV1ByServiceProviderId(serviceProviderId);
     }
+
+    @Override
+    public Mono<ServicesProviderDetailsV1> findById(String id) {
+        return this.serviceProviderDetailsV1Dao.findById(id);
+    }
 }

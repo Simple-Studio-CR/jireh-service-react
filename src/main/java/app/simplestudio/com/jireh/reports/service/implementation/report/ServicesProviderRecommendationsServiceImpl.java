@@ -14,6 +14,11 @@ public class ServicesProviderRecommendationsServiceImpl implements ServicesProvi
     ServicesProviderRecommendationsDao recommendationsDao;
 
     @Override
+    public Mono<ServicesProviderRecommendations> findById(String id) {
+        return this.recommendationsDao.findById(id);
+    }
+
+    @Override
     public Mono<ServicesProviderRecommendations> save(ServicesProviderRecommendations recommendations) {
         return this.recommendationsDao.save(recommendations);
     }
