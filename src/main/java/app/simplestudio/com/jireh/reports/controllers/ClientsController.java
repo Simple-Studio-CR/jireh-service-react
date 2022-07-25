@@ -136,7 +136,6 @@ public class ClientsController {
         return branchOfficeService.findById(id).flatMap(c -> {
                     c.setClientId(monoBranch.getClientId());
                     c.setCanton(monoBranch.getCanton());
-                    c.setId(monoBranch.getId());
                     c.setDistrict(monoBranch.getDistrict());
                     c.setNeighborhood(monoBranch.getNeighborhood());
                     c.setAddressDetails(monoBranch.getAddressDetails());
