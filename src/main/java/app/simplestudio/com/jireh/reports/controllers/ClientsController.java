@@ -9,8 +9,13 @@ import app.simplestudio.com.jireh.reports.service.inteface.client.ClientsService
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -178,12 +183,10 @@ public class ClientsController {
 
     @PutMapping("/edit-warehouse/{id}")
     public Mono<ResponseEntity<ClientsBranchOfficeWarehouse>> editWarehouse(@Valid @RequestBody ClientsBranchOfficeWarehouse monoWarehouse,
-                                                                         @PathVariable(value = "id") String id) throws ParseException {
+                                                                            @PathVariable(value = "id") String id) throws ParseException {
         return warehouseService.findById(id).flatMap(c -> {
-                    c.setBranchId(monoWarehouse.getBranchId());
                     c.setSketch(monoWarehouse.getSketch());
                     c.setName(monoWarehouse.getName());
-                    c.setId(monoWarehouse.getId());
                     return this.warehouseService.save(c);
                 }).map(c -> ResponseEntity.created(URI.create("api/clients".concat(c.getId())))
                         .contentType(MediaType.APPLICATION_JSON)
