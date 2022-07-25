@@ -176,7 +176,7 @@ public class ClientsController {
         });
     }
 
-    @PutMapping("/warehouse/{id}")
+    @PutMapping("/edit-warehouse/{id}")
     public Mono<ResponseEntity<ClientsBranchOfficeWarehouse>> editWarehouse(@Valid @RequestBody ClientsBranchOfficeWarehouse monoWarehouse,
                                                                          @PathVariable(value = "id") String id) throws ParseException {
         return warehouseService.findById(id).flatMap(c -> {
