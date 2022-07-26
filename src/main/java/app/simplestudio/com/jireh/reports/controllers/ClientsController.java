@@ -138,7 +138,8 @@ public class ClientsController {
                     c.setCanton(monoBranch.getCanton());
                     c.setDistrict(monoBranch.getDistrict());
                     c.setNeighborhood(monoBranch.getNeighborhood());
-                    c.setAddressDetails(monoBranch.getAddressDetails());
+                    c.setAddressDetails(
+                            monoBranch.getAddressDetails());
                     c.setProvince(monoBranch.getProvince());
                     c.setName(monoBranch.getName());
                     return this.branchOfficeService.save(c);
