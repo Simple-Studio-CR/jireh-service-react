@@ -68,6 +68,8 @@ public class JirehProductController {
                     p.setActiveingredient(monoProduct.getActiveingredient());
                     p.setName(monoProduct.getName());
                     p.setSanitaryPermission(monoProduct.getSanitaryPermission());
+                    p.setDose(monoProduct.getDose());
+                    p.setLabelColor(monoProduct.getLabelColor());
                     return this.jirehProductsService.save(p);
                 }).map(p -> ResponseEntity.created(URI.create("api/clients".concat(p.getId())))
                         .contentType(MediaType.APPLICATION_JSON)
