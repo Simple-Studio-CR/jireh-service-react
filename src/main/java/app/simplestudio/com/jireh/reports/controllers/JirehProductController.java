@@ -5,7 +5,13 @@ import app.simplestudio.com.jireh.reports.service.inteface.JirehProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -22,13 +28,10 @@ public class JirehProductController {
     @Autowired
     JirehProductsService jirehProductsService;
 
-    @GetMapping("/all")
-    public Mono<ResponseEntity<Flux<JirehProducts>>> productsList() {
-        return Mono.just(
-                ResponseEntity.ok()
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(jirehProductsService.findAll())
-        );
+    @GetMapping("/all/{pageNo}/{pageSize}")
+    public Flux<?> productsList(@PathVariable(value = "pageNo") int pageNo,
+                                @PathVariable(value = "pageSize") int pageSize) {
+        return jirehProductsService.findAllPageable(pageNo, pageSize);
     }
 
     @GetMapping("/{id}")

@@ -6,7 +6,7 @@ import reactor.core.publisher.Mono;
 
 public interface JirehProductsService{
 	
-	Flux<JirehProducts> findAll();
+	Flux<?> findAllPageable(int pageNo, int pageSize);
 	
 	Mono<JirehProducts> findById(String id);
 	
