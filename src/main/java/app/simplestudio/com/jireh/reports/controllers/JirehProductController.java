@@ -3,6 +3,7 @@ package app.simplestudio.com.jireh.reports.controllers;
 import app.simplestudio.com.jireh.reports.documents.JirehProducts;
 import app.simplestudio.com.jireh.reports.service.inteface.JirehProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,7 @@ public class JirehProductController {
     JirehProductsService jirehProductsService;
 
     @GetMapping("/all/{pageNo}/{pageSize}")
-    public Flux<?> productsList(@PathVariable(value = "pageNo") int pageNo,
+    public Flux<Page<?>> productsList(@PathVariable(value = "pageNo") int pageNo,
                                 @PathVariable(value = "pageSize") int pageSize) {
         return jirehProductsService.findAllPageable(pageNo, pageSize);
     }

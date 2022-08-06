@@ -1,6 +1,7 @@
 package app.simplestudio.com.jireh.reports.dao;
 
 import app.simplestudio.com.jireh.reports.documents.JirehProducts;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
@@ -11,5 +12,5 @@ public interface JirehProductsDao extends ReactiveMongoRepository<JirehProducts,
 	
 	public Mono<JirehProducts> findByName(String name);
 
-	public Flux<?> findAllByNameIsNotNull(Pageable pageable);
+	public Flux<Page<?>> findAllByNameIsNotNull(Pageable pageable);
 }

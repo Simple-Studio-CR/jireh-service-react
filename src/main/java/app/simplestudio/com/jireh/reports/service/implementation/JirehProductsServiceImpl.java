@@ -4,6 +4,7 @@ import app.simplestudio.com.jireh.reports.dao.JirehProductsDao;
 import app.simplestudio.com.jireh.reports.documents.JirehProducts;
 import app.simplestudio.com.jireh.reports.service.inteface.JirehProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class JirehProductsServiceImpl implements JirehProductsService {
 	JirehProductsDao productDao;
 
 	@Override
-	public Flux<?> findAllPageable(int pageNo, int pageSize) {
+	public Flux<Page<?>> findAllPageable(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return productDao.findAllByNameIsNotNull(pageable);
 	}
