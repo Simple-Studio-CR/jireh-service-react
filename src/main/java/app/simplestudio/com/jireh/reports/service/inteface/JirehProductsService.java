@@ -2,12 +2,15 @@ package app.simplestudio.com.jireh.reports.service.inteface;
 
 import app.simplestudio.com.jireh.reports.documents.JirehProducts;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface JirehProductsService{
 
-	Flux<Page<?>> findAllPageable(int pageNo, int pageSize);
+	Flux<JirehProducts> findAll(int pageNo, int pageSize);
+
+	Mono<Long> countAllByNameNotNull();
 	
 	Mono<JirehProducts> findById(String id);
 	

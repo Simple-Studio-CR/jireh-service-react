@@ -12,5 +12,7 @@ public interface JirehProductsDao extends ReactiveMongoRepository<JirehProducts,
 	
 	public Mono<JirehProducts> findByName(String name);
 
-	public Flux<Page<?>> findAllByNameIsNotNull(Pageable pageable);
+	Flux<JirehProducts> findAllByNameIsNotNull(Pageable pageable);
+
+	Mono<Long> countAllByNameNotNull();
 }

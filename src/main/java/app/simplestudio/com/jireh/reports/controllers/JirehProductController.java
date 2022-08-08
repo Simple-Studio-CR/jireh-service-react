@@ -30,9 +30,14 @@ public class JirehProductController {
     JirehProductsService jirehProductsService;
 
     @GetMapping("/all/{pageNo}/{pageSize}")
-    public Flux<Page<?>> productsList(@PathVariable(value = "pageNo") int pageNo,
+    public ResponseEntity<Flux<?>> productsList(@PathVariable(value = "pageNo") int pageNo,
                                 @PathVariable(value = "pageSize") int pageSize) {
-        return jirehProductsService.findAllPageable(pageNo, pageSize);
+        return ResponseEntity.ok(jirehProductsService.findAll(pageNo, pageSize));
+    }
+
+    @GetMapping("/count/all")
+    public Mono<Long> countAllByNameNotNull() {
+        return this.jirehProductsService.countAllByNameNotNull();
     }
 
     @GetMapping("/{id}")

@@ -18,9 +18,14 @@ public class JirehProductsServiceImpl implements JirehProductsService {
 	JirehProductsDao productDao;
 
 	@Override
-	public Flux<Page<?>> findAllPageable(int pageNo, int pageSize) {
+	public Flux<JirehProducts> findAll(int pageNo, int pageSize){
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
 		return productDao.findAllByNameIsNotNull(pageable);
+	}
+
+	@Override
+	public Mono<Long> countAllByNameNotNull() {
+		return this.productDao.countAllByNameNotNull();
 	}
 
 	@Override
